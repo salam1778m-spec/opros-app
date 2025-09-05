@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анонимная проверка репродуктивного здоровья</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="container">
+            <h1>Позаботьтесь о своем здоровье анонимно и комфортно</h1>
+            <p class="hero-subtitle">Пройти предварительную консультацию онлайн. Ваши данные конфиденциальны, первый шаг к решению проблемы — самый простой.</p>
+            <button class="cta-button" onclick="scrollToForm()">Заполнить анкету</button>
+        </div>
+    </section>
+
+    <!-- Блок преимуществ -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefit-card">
+                <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 11H5V5H19V11Z" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 11V19H19V11" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 5H21" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 15L14 17L17 14" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3>Полная анонимность</h3>
+                <p>Мы не требуем ваше имя и паспортные данные. Достаточно номера телефона для связи.</p>
+            </div>
+            <div class="benefit-card">
+                <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#4A90E2" stroke-width="2"/>
+                    <path d="M8 12H16" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 16V8" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <h3>Конфиденциальность</h3>
+                <p>Все сведения, переданные вами, защищены нормами врачебной тайны.</p>
+            </div>
+            <div class="benefit-card">
+                <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 12V5H4V19H12" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 9H20" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 17H16.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20 17H20.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 17H12.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3>Профессиональная оценка</h3>
+                <p>Вашу анкету изучит опытный специалист перед тем, как предложить дальнейшие шаги.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма и опросник -->
+    <section class="form-section" id="formSection">
+        <div class="container">
+            <h2>Анонимная анкета</h2>
+            <form id="healthForm" onsubmit="handleFormSubmit(event)">
+                
+                <div class="form-group" id="phoneGroup">
+                    <label for="phone">Номер телефона (для связи)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
+                </div>
+
+                <!-- Контейнер для опросника (будет заполняться JS) -->
+                <div class="quiz-container" id="quizContainer"></div>
+
+                <div class="form-footer">
+                    <p>Нажимая кнопку, вы соглашаетесь на обработку персональных данных в рамках нашей <a href="#">политики конфиденциальности</a>.</p>
+                    <button type="submit" class="submit-button">Отправить анкету</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Блок с гарантиями -->
+    <section class="guarantees">
+        <div class="container">
+            <h2>Ваши данные в безопасности</h2>
+            <p>Мы используем современные методы шифрования для защиты передаваемой информации. Доступ к анкетам имеют только authorized медицинские сотрудники, связанные строгими обязательствами о неразглашении врачебной тайны. После консультации данные могут быть анонимизированы и удалены по вашему запросу.</p>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <p><strong>Проект "Здоровье"</strong></p>
+            <p>Общие вопросы: <a href="mailto:support@example.com">support@example.com</a></p>
+            <p>&copy; 2023. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
