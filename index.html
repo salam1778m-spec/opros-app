@@ -4,93 +4,770 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Анонимная проверка репродуктивного здоровья</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Базовые стили и сброс */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Стили для главной страницы */
+        .hero {
+            background: linear-gradient(135deg, rgba(199, 238, 255, 0.7) 0%, rgba(230, 230, 250, 0.7) 100%);
+            text-align: center;
+            padding: 80px 20px;
+            color: #2c3e50;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #5a6b7c;
+        }
+
+        .cta-button {
+            background-color: #FFAFAC;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #ff9c98;
+        }
+
+        .benefits {
+            padding: 80px 20px;
+            background-color: white;
+        }
+
+        .benefits .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .benefit-card {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #F8FBFF;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .benefit-icon {
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 15px;
+            color: #4A90E2;
+        }
+
+        .form-section {
+            padding: 80px 20px;
+            background-color: #f0f8ff;
+        }
+
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        #healthForm {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5a6b7c;
+        }
+
+        input[type="tel"],
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #C7EEFF;
+            box-shadow: 0 0 0 2px rgba(199, 238, 255, 0.5);
+        }
+
+        .quiz-question {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .quiz-question:last-of-type {
+            border-bottom: none;
+        }
+
+        .quiz-question label {
+            margin-bottom: 12px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            margin-top: 8px;
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .radio-group input,
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .form-footer p {
+            font-size: 0.9rem;
+            color: #7a8a9c;
+            margin-bottom: 20px;
+        }
+
+        .submit-button {
+            background-color: #FFAFAC;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #ff9c98;
+        }
+
+        .guarantees {
+            padding: 80px 20px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .guarantees h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .guarantees p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #5a6b7c;
+        }
+
+        .footer {
+            background-color: #e6e6fa;
+            padding: 30px 20px;
+            text-align: center;
+            color: #5a6b7c;
+        }
+
+        .footer a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Стили для страницы благодарности */
+        #thankYouPage {
+            display: none;
+            text-align: center;
+            padding: 100px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        #thankYouPage h1 {
+            color: #4A90E2;
+            margin-bottom: 30px;
+        }
+
+        #thankYouPage p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #5a6b7c;
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #FFAFAC;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .benefits .container {
+                flex-direction: column;
+            }
+
+            .benefit-card {
+                min-width: 100%;
+            }
+
+            #healthForm {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Герой-секция -->
-    <section class="hero">
-        <div class="container">
-            <h1>Позаботьтесь о своем здоровье анонимно и комфортно</h1>
-            <p class="hero-subtitle">Пройти предварительную консультацию онлайн. Ваши данные конфиденциальны, первый шаг к решению проблемы — самый простой.</p>
-            <button class="cta-button" onclick="scrollToForm()">Заполнить анкету</button>
-        </div>
-    </section>
+    <!-- Главная страница -->
+    <div id="mainPage">
+        <!-- Герой-секция -->
+        <section class="hero">
+            <div class="container">
+                <h1>Позаботьтесь о своем здоровье анонимно и комфортно</h1>
+                <p class="hero-subtitle">Пройти предварительную консультацию онлайн. Ваши данные конфиденциальны, первый шаг к решению проблемы — самый простой.</p>
+                <button class="cta-button" onclick="scrollToForm()">Заполнить анкету</button>
+            </div>
+        </section>
 
-    <!-- Блок преимуществ -->
-    <section class="benefits">
-        <div class="container">
-            <div class="benefit-card">
-                <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 11H5V5H19V11Z" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 11V19H19V11" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M3 5H21" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 15L14 17L17 14" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3>Полная анонимность</h3>
-                <p>Мы не требуем ваше имя и паспортные данные. Достаточно номера телефона для связи.</p>
-            </div>
-            <div class="benefit-card">
-                <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#4A90E2" stroke-width="2"/>
-                    <path d="M8 12H16" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M12 16V8" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                <h3>Конфиденциальность</h3>
-                <p>Все сведения, переданные вами, защищены нормами врачебной тайны.</p>
-            </div>
-            <div class="benefit-card">
-                <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 12V5H4V19H12" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M4 9H20" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M16 17H16.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M20 17H20.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 17H12.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3>Профессиональная оценка</h3>
-                <p>Вашу анкету изучит опытный специалист перед тем, как предложить дальнейшие шаги.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Форма и опросник -->
-    <section class="form-section" id="formSection">
-        <div class="container">
-            <h2>Анонимная анкета</h2>
-            <form id="healthForm" onsubmit="handleFormSubmit(event)">
-                
-                <div class="form-group" id="phoneGroup">
-                    <label for="phone">Номер телефона (для связи)</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
+        <!-- Блок преимуществ -->
+        <section class="benefits">
+            <div class="container">
+                <div class="benefit-card">
+                    <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 11H5V5H19V11Z" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 11V19H19V11" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 5H21" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 15L14 17L17 14" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>Полная анонимность</h3>
+                    <p>Мы не требуем ваше имя и паспортные данные. Достаточно номера телефона для связи.</p>
                 </div>
-
-                <!-- Контейнер для опросника (будет заполняться JS) -->
-                <div class="quiz-container" id="quizContainer"></div>
-
-                <div class="form-footer">
-                    <p>Нажимая кнопку, вы соглашаетесь на обработку персональных данных в рамках нашей <a href="#">политики конфиденциальности</a>.</p>
-                    <button type="submit" class="submit-button">Отправить анкету</button>
+                <div class="benefit-card">
+                    <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#4A90E2" stroke-width="2"/>
+                        <path d="M8 12H16" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 16V8" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3>Конфиденциальность</h3>
+                    <p>Все сведения, переданные вами, защищены нормами врачебной тайны.</p>
                 </div>
-            </form>
-        </div>
-    </section>
+                <div class="benefit-card">
+                    <svg class="benefit-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 12V5H4V19H12" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 9H20" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 17H16.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 17H20.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 17H12.01" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>Профессиональная оценка</h3>
+                    <p>Вашу анкету изучит опытный специалист перед тем, как предложить дальнейшие шаги.</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- Блок с гарантиями -->
-    <section class="guarantees">
+        <!-- Форма и опросник -->
+        <section class="form-section" id="formSection">
+            <div class="container">
+                <h2>Анонимная анкета</h2>
+                <form id="healthForm" onsubmit="handleFormSubmit(event)">
+                    
+                    <div class="form-group" id="phoneGroup">
+                        <label for="phone">Номер телефона (для связи)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
+                    </div>
+
+                    <!-- Контейнер для опросника (будет заполняться JS) -->
+                    <div class="quiz-container" id="quizContainer"></div>
+
+                    <div class="form-footer">
+                        <p>Нажимая кнопку, вы соглашаетесь на обработку персональных данных в рамках нашей <a href="#">политики конфиденциальности</a>.</p>
+                        <button type="submit" class="submit-button">Отправить анкету</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Блок с гарантиями -->
+        <section class="guarantees">
+            <div class="container">
+                <h2>Ваши данные в безопасности</h2>
+                <p>Мы используем современные методы шифрования для защиты передаваемой информации. Доступ к анкетам имеют только authorized медицинские сотрудники, связанные строгими обязательствами о неразглашении врачебной тайны. После консультации данные могут быть анонимизированы и удалены по вашему запросу.</p>
+            </div>
+        </section>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <div class="container">
+                <p><strong>Проект "Здоровье"</strong></p>
+                <p>Общие вопросы: <a href="mailto:support@example.com">support@example.com</a></p>
+                <p>&copy; 2023. Все права защищены.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Страница благодарности -->
+    <div id="thankYouPage">
         <div class="container">
-            <h2>Ваши данные в безопасности</h2>
-            <p>Мы используем современные методы шифрования для защиты передаваемой информации. Доступ к анкетам имеют только authorized медицинские сотрудники, связанные строгими обязательствами о неразглашении врачебной тайны. После консультации данные могут быть анонимизированы и удалены по вашему запросу.</p>
+            <h1>Спасибо! Ваша анкета принята.</h1>
+            <p>Врач свяжется с вами по указанному номеру телефона в течение 24 часов для согласования времени консультации.</p>
+            <p>Обратите внимание: звонок может поступить с скрытого или незнакомого номера.</p>
+            <a href="#" class="back-link" onclick="showMainPage()">Вернуться на главную</a>
         </div>
-    </section>
+    </div>
 
-    <!-- Футер -->
-    <footer class="footer">
-        <div class="container">
-            <p><strong>Проект "Здоровье"</strong></p>
-            <p>Общие вопросы: <a href="mailto:support@example.com">support@example.com</a></p>
-            <p>&copy; 2023. Все права защищены.</p>
+    <script>
+       // Данные для мужского опросника
+const maleQuizData = [
+    {
+        id: 'has_children',
+        type: 'radio',
+        question: 'Есть ли у Вас родные дети?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'plan_children',
+        type: 'radio',
+        question: 'Планируете ли Вы в дальнейшем зачать ребенка?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'visit_sauna',
+        type: 'radio',
+        question: 'Посещаете ли вы регулярно бани, сауны и другие места с повышенной температурой окружающей среды?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'sex_start_age',
+        type: 'number',
+        question: 'Возраст начала половой жизни (полных лет)?',
+        required: true,
+        min: 12,
+        max: 50
+    },
+    {
+        id: 'unprotected_sex',
+        type: 'radio',
+        question: 'Были ли у вас в течение последних 12 месяцев половые контакты без использования презерватива?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'plan_conception',
+        type: 'radio',
+        question: 'Планируете ли Вы с супругой (партнёршей) зачатие ребенка в течение ближайших 12 месяцев?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'infertility_problem',
+        type: 'radio',
+        question: 'Было ли так, что у партнерши не наступала беременность более чем через 12 месяцев регулярной половой жизни без предохранения?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'partner_miscarriage',
+        type: 'radio',
+        question: 'Наступали ли у Ваших половых партнерш замершие беременности или самопроизвольные аборты?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'urination_problems',
+        type: 'radio',
+        question: 'Учащенное, болезненное или затрудненное мочеиспускание, выделения из мочеиспускательного канала?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'nocturia',
+        type: 'radio',
+        question: 'Регулярная, не связанная с приемом большого количества жидкости необходимость просыпаться ночью, чтобы помочиться?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'pelvic_pain',
+        type: 'radio',
+        question: 'Боли внизу живота (в промежности, в области мошонки, в половом члене)?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'genital_issues',
+        type: 'radio',
+        question: 'Беспокоящие состояния со стороны половых органов (изменение формы, высыпания, отделяемое из мочеиспускательного канала)?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'cryptorchidism',
+        type: 'radio',
+        question: 'Крипторхизм?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'hypospadias',
+        type: 'radio',
+        question: 'Гипоспадия?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'phimosis',
+        type: 'radio',
+        question: 'Фимоз?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'testicular_cysts',
+        type: 'radio',
+        question: 'Кисты или опухоли яичек или придатков яичка?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'prostatitis',
+        type: 'radio',
+        question: 'Простатит?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'epididymitis',
+        type: 'radio',
+        question: 'Эпидидимит?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'std_history',
+        type: 'radio',
+        question: 'Инфекции, передаваемые половым путем?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'urological_surgery',
+        type: 'radio',
+        question: 'Перенесенные урологические операции?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'mumps',
+        type: 'radio',
+        question: 'Эпидемический паротит (свинка)?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'autoimmune_diseases',
+        type: 'radio',
+        question: 'Аутоиммунные или ревматические заболевания, требующие приема глюкокортикоидов и/или цитостатиков?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'cancer_treatment',
+        type: 'radio',
+        question: 'Онкологические заболевания любой локализации, требующие химио- или лучевой терапии?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'diabetes',
+        type: 'radio',
+        question: 'Сахарный диабет I или II типа?',
+        options: ['да', 'нет'],
+        required: true
+    },
+    {
+        id: 'other_diseases',
+        type: 'radio',
+        question: 'Заболевания других органов и систем (сердца и сосудов, легких, желудочно-кишечного тракта, почек, мочевого пузыря, щитовидной железы, нервной системы, аллергические состояния)?',
+        options: ['да', 'нет'],
+        required: true
+    }
+];
+
+// Данные для женского опросника (базовый набор)
+const femaleQuizData = [
+    // ... (базовые вопросы для женщин, которые уже были)
+];
+
+// Загружаем опросник в контейнер при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Добавляем выбор пола в начало формы
+    addGenderSelection();
+});
+
+function addGenderSelection() {
+    const quizContainer = document.getElementById('quizContainer');
+    const genderHtml = `
+        <div class="quiz-question">
+            <label>Ваш пол? <span style="color: #FFAFAC;">*</span></label>
+            <div class="radio-group">
+                <input type="radio" id="gender-male" name="gender" value="male" required>
+                <label for="gender-male">Мужской</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="gender-female" name="gender" value="female" required>
+                <label for="gender-female">Женский</label>
+            </div>
         </div>
-    </footer>
+    `;
+    quizContainer.innerHTML = genderHtml;
+    
+    // Добавляем обработчик изменения пола
+    document.querySelectorAll('input[name="gender"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            renderGenderSpecificQuestions(this.value);
+        });
+    });
+}
 
-    <script src="script.js"></script>
+function renderGenderSpecificQuestions(gender) {
+    const quizContainer = document.getElementById('quizContainer');
+    
+    // Сохраняем выбор пола
+    const genderSelection = quizContainer.querySelector('.quiz-question');
+    
+    // Очищаем остальные вопросы
+    const questionsToRemove = quizContainer.querySelectorAll('.quiz-question:not(:first-child)');
+    questionsToRemove.forEach(q => q.remove());
+    
+    // Добавляем соответствующие вопросы в зависимости от пола
+    const quizData = gender === 'male' ? maleQuizData : femaleQuizData;
+    
+    quizData.forEach((questionData, index) => {
+        const questionEl = document.createElement('div');
+        questionEl.classList.add('quiz-question');
+
+        // Создаем label для вопроса
+        const label = document.createElement('label');
+        label.textContent = questionData.question;
+        if (questionData.required) {
+            label.innerHTML += ' <span style="color: #FFAFAC;">*</span>';
+        }
+        questionEl.appendChild(label);
+
+        // Создаем поле ввода в зависимости от типа
+        switch (questionData.type) {
+            case 'radio':
+                questionData.options.forEach(option => {
+                    const radioWrapper = document.createElement('div');
+                    radioWrapper.classList.add('radio-group');
+
+                    const radioInput = document.createElement('input');
+                    radioInput.type = 'radio';
+                    radioInput.name = questionData.id;
+                    radioInput.value = option;
+                    radioInput.id = `${questionData.id}-${option}`;
+                    if (questionData.required) radioInput.required = true;
+
+                    const radioLabel = document.createElement('label');
+                    radioLabel.htmlFor = `${questionData.id}-${option}`;
+                    radioLabel.textContent = option;
+
+                    radioWrapper.appendChild(radioInput);
+                    radioWrapper.appendChild(radioLabel);
+                    questionEl.appendChild(radioWrapper);
+                });
+                break;
+
+            case 'checkbox':
+                questionData.options.forEach(option => {
+                    const checkboxWrapper = document.createElement('div');
+                    checkboxWrapper.classList.add('checkbox-group');
+
+                    const checkboxInput = document.createElement('input');
+                    checkboxInput.type = 'checkbox';
+                    checkboxInput.name = questionData.id;
+                    checkboxInput.value = option;
+                    checkboxInput.id = `${questionData.id}-${option}`;
+
+                    const checkboxLabel = document.createElement('label');
+                    checkboxLabel.htmlFor = `${questionData.id}-${option}`;
+                    checkboxLabel.textContent = option;
+
+                    checkboxWrapper.appendChild(checkboxInput);
+                    checkboxWrapper.appendChild(checkboxLabel);
+                    questionEl.appendChild(checkboxWrapper);
+                });
+                break;
+
+            case 'text':
+            case 'number':
+                const input = document.createElement('input');
+                input.type = questionData.type;
+                input.name = questionData.id;
+                input.id = questionData.id;
+                if (questionData.required) input.required = true;
+                if (questionData.min) input.min = questionData.min;
+                if (questionData.max) input.max = questionData.max;
+                if (questionData.placeholder) input.placeholder = questionData.placeholder;
+                questionEl.appendChild(input);
+                break;
+
+            case 'textarea':
+                const textarea = document.createElement('textarea');
+                textarea.name = questionData.id;
+                textarea.id = questionData.id;
+                textarea.rows = 4;
+                if (questionData.required) textarea.required = true;
+                if (questionData.placeholder) textarea.placeholder = questionData.placeholder;
+                questionEl.appendChild(textarea);
+                break;
+        }
+
+        quizContainer.appendChild(questionEl);
+    });
+}
+
+function scrollToForm() {
+    document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Функция для показа страницы благодарности
+function showThankYouPage() {
+    document.getElementById('mainPage').style.display = 'none';
+    document.getElementById('thankYouPage').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+// Функция для возврата на главную страницу
+function showMainPage() {
+    document.getElementById('thankYouPage').style.display = 'none';
+    document.getElementById('mainPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    // Сброс формы
+    document.getElementById('healthForm').reset();
+    // Перезагрузка вопросов
+    addGenderSelection();
+}
+
+// Обработчик отправки формы
+function handleFormSubmit(event) {
+    event.preventDefault(); // Предотвращаем перезагрузку страницы
+
+    // Собираем все данные формы
+    const form = event.target;
+    const formData = new FormData(form);
+
+    // Собираем данные в объект для удобства (в реальности здесь будет отправка на сервер)
+    const formValues = {};
+    for (let [key, value] of formData.entries()) {
+        // Для чекбоксов с одним именем нужно собирать значения в массив
+        if (formValues[key]) {
+            if (!Array.isArray(formValues[key])) {
+                formValues[key] = [formValues[key]];
+            }
+            formValues[key].push(value);
+        } else {
+            formValues[key] = value;
+        }
+    }
+
+    // В реальном проекте здесь будет fetch запрос на ваш сервер
+    console.log('Данные анкеты:', formValues);
+
+    // Показываем страницу благодарности
+    showThankYouPage();
+
+    // Если бы была отправка на сервер:
+    // fetch('your-server-endpoint', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(formValues)
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log('Success:', data);
+    //   showThankYouPage();
+    // })
+    // .catch((error) => {
+    //   console.error('Error:', error);
+    //   alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
+    // });
+}
+    </script>
 </body>
 </html>
