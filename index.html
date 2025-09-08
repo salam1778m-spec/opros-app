@@ -442,23 +442,24 @@ textarea::placeholder {
             <div class="container">
                 <h2>Анонимная анкета</h2>
                 <form id="healthForm" action="https://formsubmit.co/msalam999@mail.ru" method="POST">
-                    <input type="hidden" name="_subject" value="Новая анкета здоровья">
-<input type="hidden" name="_template" value="table">
-<input type="hidden" name="_next" value="https://yourwebsite.com/thanks.html">
-                    
-                    <div class="form-group" id="phoneGroup">
-                        <label for="phone">Номер телефона (для связи)</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
-                    </div>
+    <input type="hidden" name="_subject" value="Новая анкета здоровья">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://salam1778m-spec.github.io/opros-app/#thankYouPage">
+    <input type="hidden" name="_captcha" value="false">
+    
+    <div class="form-group" id="phoneGroup">
+        <label for="phone">Номер телефона (для связи)</label>
+        <input type="tel" id="phone" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
+    </div>
 
-                    <!-- Контейнер для опросника (будет заполняться JS) -->
-                    <div class="quiz-container" id="quizContainer"></div>
+    <!-- Контейнер для опросника -->
+    <div class="quiz-container" id="quizContainer"></div>
 
-                    <div class="form-footer">
-                        <p>Нажимая кнопку, вы соглашаетесь на обработку персональных данных в рамках нашей <a href="#">политики конфиденциальности</a>.</p>
-                        <button type="submit" class="submit-button">Отправить анкету</button>
-                    </div>
-                </form>
+    <div class="form-footer">
+        <p>Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+        <button type="submit" class="submit-button">Отправить анкету</button>
+    </div>
+</form>
             </div>
         </section>
 
