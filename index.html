@@ -441,7 +441,10 @@ textarea::placeholder {
         <section class="form-section" id="formSection">
             <div class="container">
                 <h2>Анонимная анкета</h2>
-                <form id="healthForm" onsubmit="handleFormSubmit(event)">
+                <form id="healthForm" action="https://formsubmit.co/msalam999@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Новая анкета здоровья">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://yourwebsite.com/thanks.html">
                     
                     <div class="form-group" id="phoneGroup">
                         <label for="phone">Номер телефона (для связи)</label>
