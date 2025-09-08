@@ -442,14 +442,20 @@ textarea::placeholder {
             <div class="container">
                 <h2>Анонимная анкета</h2>
                 <form id="healthForm" action="https://formsubmit.co/msalam999@mail.ru" method="POST">
-    <input type="hidden" name="_subject" value="Новая анкета здоровья">
+    <!-- Русская локализация -->
+    <input type="hidden" name="_language" value="ru">
+    <input type="hidden" name="_autoresponse" value="Спасибо за вашу анкету! Мы свяжемся с вами в течение 24 часов.">
+    
+    <!-- Основные настройки -->
+    <input type="hidden" name="_subject" value="Новая анкета репродуктивного здоровья">
     <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_next" value="https://salam1778m-spec.github.io/opros-app/#thankYouPage">
+    <input type="hidden" name="_next" value="https://ваш-сайт.github.io/#thankYouPage">
     <input type="hidden" name="_captcha" value="false">
     
+    <!-- Ваши поля формы -->
     <div class="form-group" id="phoneGroup">
         <label for="phone">Номер телефона (для связи)</label>
-        <input type="tel" id="phone" name="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
+        <input type="tel" id="phone" name="Телефон" placeholder="+7 (XXX) XXX-XX-XX" required>
     </div>
 
     <!-- Контейнер для опросника -->
