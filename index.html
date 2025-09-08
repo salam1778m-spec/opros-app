@@ -177,42 +177,73 @@ textarea {
         }
 
         .radio-options-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
 
-        .radio-option {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            flex: 1;
-            margin: 0 10px;
-            cursor: pointer;
-        }
-
-        .radio-option:first-child {
-            margin-left: 0;
-        }
-
-        .radio-option:last-child {
-            margin-right: 0;
-        }
-
-        .radio-option {
+.radio-option {
+    display: flex;
+    align-items: center;
     padding: 20px 25px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+    cursor: pointer;
     min-height: 70px;
 }
 
-        .radio-option input[type="radio"] {
-    width: 28px;
-    height: 28px;
+.radio-option:hover {
+    background: #e9ecef;
+    border-color: #C7EEFF;
+}
+
+.radio-option input[type="radio"] {
+    width: 24px;
+    height: 24px;
     margin-right: 15px;
+    cursor: pointer;
+}
+
+.radio-option label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    flex: 1;
+    margin: 0;
+}
+
+/* Скрываем стандартные радиокнопки и создаем кастомные */
+.radio-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    margin-right: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio-option input[type="radio"]:checked {
+    border-color: #4A90E2;
+    background-color: #4A90E2;
+}
+
+.radio-option input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
 }
 
 .radio-option label {
@@ -349,21 +380,30 @@ textarea {
             }
 
             .radio-options-container {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .radio-option {
-                margin: 0;
-                width: 100%;
-            }
-
-            .cta-button,
-            .submit-button {
-                width: 100%;
-                padding: 16px;
-            }
-        }
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .radio-option {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .radio-option {
+        padding: 18px 20px;
+        min-height: 65px;
+    }
+    
+    .radio-option input[type="radio"] {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .radio-option input[type="radio"]:checked::after {
+        width: 10px;
+        height: 10px;
+    }
+}
 
         @media (max-width: 480px) {
             .hero {
@@ -498,30 +538,30 @@ textarea::placeholder {
     </div>
 
     <script>
-        const maleQuizData = [
+    const maleQuizData = [
     {
-        id: 'has_children',
+        id: 'есть_дети',
         type: 'radio',
         question: 'Есть ли у Вас родные дети?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'plan_children',
+        id: 'планируете_детей',
         type: 'radio',
         question: 'Планируете ли Вы в дальнейшем зачать ребенка?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'visit_sauna',
+        id: 'посещаете_сауну',
         type: 'radio',
         question: 'Посещаете ли вы регулярно бани, сауны и другие места с повышенной температурой окружающей среды?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'sex_start_age',
+        id: 'возраст_начала_половой_жизни',
         type: 'number',
         question: 'Возраст начала половой жизни (полных лет)?',
         required: true,
@@ -529,147 +569,147 @@ textarea::placeholder {
         max: 50
     },
     {
-        id: 'unprotected_sex',
+        id: 'незащищенный_секс',
         type: 'radio',
         question: 'Были ли у вас в течение последних 12 месяцев половые контакты без использования презерватива?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'plan_conception',
+        id: 'планирование_зачатия',
         type: 'radio',
         question: 'Планируете ли Вы с супругой (партнёршей) зачатие ребенка в течение ближайших 12 месяцев?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'infertility_problem',
+        id: 'проблема_бесплодия',
         type: 'radio',
         question: 'Было ли так, что у партнерши не наступала беременность более чем через 12 месяцев регулярной половой жизни без предохранения?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'partner_miscarriage',
+        id: 'выкидыши_партнерши',
         type: 'radio',
         question: 'Наступали ли у Ваших половых партнерш замершие беременности или самопроизвольные аборты?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'urination_problems',
+        id: 'проблемы_мочеиспускания',
         type: 'radio',
         question: 'Учащенное, болезненное или затрудненное мочеиспускание, выделения из мочеиспускательного канала?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'nocturia',
+        id: 'ночное_мочеиспускание',
         type: 'radio',
         question: 'Регулярная, не связанная с приемом большого количества жидкости необходимость просыпаться ночью, чтобы помочиться?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'pelvic_pain',
+        id: 'боль_в_тазу',
         type: 'radio',
         question: 'Боли внизу живота (в промежности, в области мошонки, в половом члене)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'genital_issues',
+        id: 'проблемы_половых_органов',
         type: 'radio',
         question: 'Беспокоящие состояния со стороны половых органов (изменение формы, высыпания, отделяемое из мочеиспускательного канала)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'cryptorchidism',
+        id: 'крипторхизм',
         type: 'radio',
         question: 'Крипторхизм?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'hypospadias',
+        id: 'гипоспадия',
         type: 'radio',
         question: 'Гипоспадия?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'phimosis',
+        id: 'фимоз',
         type: 'radio',
         question: 'Фимоз?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'testicular_cysts',
+        id: 'кисты_яичек',
         type: 'radio',
         question: 'Кисты или опухоли яичек или придатков яичка?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'prostatitis',
+        id: 'простатит',
         type: 'radio',
         question: 'Простатит?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'epididymitis',
+        id: 'эпидидимит',
         type: 'radio',
         question: 'Эпидидимит?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'std_history',
+        id: 'иппп',
         type: 'radio',
         question: 'Инфекции, передаваемые половым путем?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'urological_surgery',
+        id: 'урологические_операции',
         type: 'radio',
         question: 'Перенесенные урологические операции?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'mumps',
+        id: 'свинка',
         type: 'radio',
         question: 'Эпидемический паротит (свинка)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'autoimmune_diseases',
+        id: 'аутоиммунные_заболевания',
         type: 'radio',
         question: 'Аутоиммунные или ревматические заболевания, требующие приема глюкокортикоидов и/или цитостатиков?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'cancer_treatment',
+        id: 'лечение_рака',
         type: 'radio',
         question: 'Онкологические заболевания любой локализации, требующие химио- или лучевой терапии?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'diabetes',
+        id: 'диабет',
         type: 'radio',
         question: 'Сахарный диабет I или II типа?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'other_diseases',
+        id: 'другие_заболевания',
         type: 'radio',
         question: 'Заболевания других органов и систем (сердца и сосудов, легких, желудочно-кишечного тракта, почек, мочевого пузыря, щитовидной железы, нервной системы, аллергические состояния)?',
         options: ['да', 'нет'],
@@ -680,7 +720,7 @@ textarea::placeholder {
 // Данные для женского опросника
 const femaleQuizData = [
     {
-        id: 'menarche_age',
+        id: 'возраст_менархе',
         type: 'number',
         question: 'В каком возрасте у Вас начались менструации (полных лет)? Если не начались, поставьте «—».',
         required: false,
@@ -688,14 +728,14 @@ const femaleQuizData = [
         max: 25
     },
     {
-        id: 'regular_cycle',
+        id: 'регулярный_цикл',
         type: 'radio',
         question: 'Менструации проходят через примерно равные промежутки времени?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'cycle_length',
+        id: 'длина_цикла',
         type: 'number',
         question: 'Какая продолжительность (была продолжительность) менструального цикла - от первого дня одной менструации до первого дня следующей?',
         required: false,
@@ -703,7 +743,7 @@ const femaleQuizData = [
         max: 35
     },
     {
-        id: 'period_duration',
+        id: 'длительность_менструации',
         type: 'number',
         question: 'Сколько дней в среднем продолжается (продолжалась) менструация?',
         required: false,
@@ -711,59 +751,59 @@ const femaleQuizData = [
         max: 10
     },
     {
-        id: 'delayed_periods',
+        id: 'задержки_менструации',
         type: 'radio',
         question: 'Бывают (бывали) ли у Вас задержки менструации более 2 недель?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'heavy_bleeding',
+        id: 'обильные_менструации',
         type: 'radio',
         question: 'У Вас обильные менструации (использование максимально впитывающих прокладок/тампонов или больше более 1 дня)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'light_bleeding',
+        id: 'скудные_менструации',
         type: 'radio',
         question: 'У Вас скудные менструации (использование только ежедневных прокладок во время менструации)?',
-        options: ['да', 'нет'],
+        options: 'да', 'нет'],
         required: true
     },
     {
-        id: 'painful_periods',
+        id: 'болезненные_менструации',
         type: 'radio',
         question: 'Менструации проходят болезненно (используете ли Вы обезболивающие препараты в дни менструации)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'pelvic_pain',
+        id: 'боль_вне_менструации',
         type: 'radio',
         question: 'Бывают у Вас боли внизу живота или пояснице вне менструации?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'intermenstrual_bleeding',
+        id: 'межменструальные_кровотечения',
         type: 'radio',
         question: 'Бывают у Вас межменструальные кровяные выделения?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'intermenstrual_days',
+        id: 'дни_межменструальных_кровотечений',
         type: 'number',
         question: 'Если «да», сколько дней (укажите цифрой количество)?',
         required: false,
         min: 1,
         max: 10,
-        dependsOn: 'intermenstrual_bleeding',
+        dependsOn: 'межменструальные_кровотечения',
         dependsValue: 'да'
     },
     {
-        id: 'current_cycle_day',
+        id: 'текущий_день_цикла',
         type: 'number',
         question: 'Какой у Вас сегодня день менструального цикла (при наличии)?',
         required: false,
@@ -771,7 +811,7 @@ const femaleQuizData = [
         max: 35
     },
     {
-        id: 'menopause_age',
+        id: 'возраст_менопаузы',
         type: 'number',
         question: 'Если у Вас закончились менструации, то в каком возрасте (полных лет)? Если не закончились, поставьте «—».',
         required: false,
@@ -779,7 +819,7 @@ const femaleQuizData = [
         max: 60
     },
     {
-        id: 'sexual_debut_age',
+        id: 'возраст_начала_половой_жизни_жен',
         type: 'number',
         question: 'В каком возрасте Вы начали половую жизнь (полных лет)?',
         required: true,
@@ -787,376 +827,376 @@ const femaleQuizData = [
         max: 40
     },
     {
-        id: 'condom_use',
+        id: 'использование_презервативов',
         type: 'radio',
         question: 'Используете ли Вы презерватив при половых контактах?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'hormonal_contraception',
+        id: 'гормональная_контрацепция',
         type: 'radio',
         question: 'Используете ли Вы гормональную контрацепцию (например, противозачаточные таблетки)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'iud',
+        id: 'вмс',
         type: 'radio',
         question: 'Предохраняетесь ли Вы с помощью внутриматочной спирали?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'painful_intercourse',
+        id: 'болезненный_половой_акт',
         type: 'radio',
         question: 'Бывают у Вас боли при половых контактах?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'bleeding_intercourse',
+        id: 'кровотечения_при_половом_акте',
         type: 'radio',
         question: 'Бывают у Вас кровяные выделения из половых путей при половой жизни?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'infertility',
+        id: 'бесплодие',
         type: 'radio',
         question: 'Страдаете ли Вы бесплодием (беременность не наступает при регулярной половой жизни без предохранения более года)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'pregnancies',
+        id: 'беременности',
         type: 'radio',
         question: 'Были ли у Вас беременности?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'pregnancies_count',
+        id: 'количество_беременностей',
         type: 'number',
         question: 'Если «да», сколько (укажите цифрой количество)?',
         required: false,
         min: 1,
         max: 20,
-        dependsOn: 'pregnancies',
+        dependsOn: 'беременности',
         dependsValue: 'да'
     },
     {
-        id: 'births',
+        id: 'роды',
         type: 'radio',
         question: 'Были ли у Вас роды?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'births_count',
+        id: 'количество_родов',
         type: 'number',
         question: 'Если «да», сколько (укажите цифрой количество)?',
         required: false,
         min: 1,
         max: 15,
-        dependsOn: 'births',
+        dependsOn: 'роды',
         dependsValue: 'да'
     },
     {
-        id: 'cesarean',
+        id: 'кесарево_сечение',
         type: 'radio',
         question: 'Если у Вас были роды, закончились ли они кесаревым сечением?',
         options: ['да', 'нет'],
         required: false,
-        dependsOn: 'births',
+        dependsOn: 'роды',
         dependsValue: 'да'
     },
     {
-        id: 'premature_birth',
+        id: 'преждевременные_роды',
         type: 'radio',
         question: 'Если у Вас были роды, закончились ли они преждевременными родами?',
         options: ['да', 'нет'],
         required: false,
-        dependsOn: 'births',
+        dependsOn: 'роды',
         dependsValue: 'да'
     },
     {
-        id: 'abortions',
+        id: 'аборты',
         type: 'radio',
         question: 'Были ли у Вас медицинские прерывания беременности (аборты)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'abortions_count',
+        id: 'количество_абортов',
         type: 'number',
         question: 'Если «да», сколько (укажите цифрой количество)?',
         required: false,
         min: 1,
         max: 10,
-        dependsOn: 'abortions',
+        dependsOn: 'аборты',
         dependsValue: 'да'
     },
     {
-        id: 'ectopic_pregnancy',
+        id: 'внематочная_беременность',
         type: 'radio',
         question: 'Были ли у Вас внематочные беременности?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'miscarriages',
+        id: 'выкидыши',
         type: 'radio',
         question: 'Были ли у Вас самопроизвольные прерывания беременности (выкидыши)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'miscarriages_count',
+        id: 'количество_выкидышей',
         type: 'number',
         question: 'Если «да», сколько (укажите цифрой количество)?',
         required: false,
         min: 1,
         max: 10,
-        dependsOn: 'miscarriages',
+        dependsOn: 'выкидыши',
         dependsValue: 'да'
     },
     {
-        id: 'missed_abortions',
+        id: 'замершие_беременности',
         type: 'radio',
         question: 'Были ли у Вас неразвивающиеся (замершие) беременности?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'missed_abortions_count',
+        id: 'количество_замерших_беременностей',
         type: 'number',
         question: 'Если «да», сколько (укажите цифрой количество)?',
         required: false,
         min: 1,
         max: 10,
-        dependsOn: 'missed_abortions',
+        dependsOn: 'замершие_беременности',
         dependsValue: 'да'
     },
     {
-        id: 'cervical_diseases',
+        id: 'заболевания_шейки_матки',
         type: 'radio',
         question: 'Заболевания шейки матки?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'uterine_inflammation',
+        id: 'воспаление_матки',
         type: 'radio',
         question: 'Воспаление матки, придатков?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'stds',
+        id: 'иппп_жен',
         type: 'radio',
         question: 'Инфекции, передающиеся половым путем (ИППП)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'ovarian_cysts',
+        id: 'кисты_яичников',
         type: 'radio',
         question: 'Кисты или опухоли яичников?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'uterine_fibroids',
+        id: 'миома_матки',
         type: 'radio',
         question: 'Миома матки?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'endometriosis',
+        id: 'эндометриоз',
         type: 'radio',
         question: 'Эндометриоз?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'gynecological_hospitalization',
+        id: 'стационарное_лечение',
         type: 'radio',
         question: 'Проходили ли Вы когда-либо стационарное лечение по поводу гинекологических заболеваний?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'gynecological_surgery',
+        id: 'гинекологические_операции',
         type: 'radio',
         question: 'Оперировались ли Вы по поводу гинекологических заболеваний?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'breast_diseases',
+        id: 'заболевания_молочных_желез',
         type: 'radio',
         question: 'Заболевания молочных желёз?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'thyroid_diseases',
+        id: 'заболевания_щитовидной_железы',
         type: 'radio',
         question: 'Заболевания щитовидной железы?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'blood_diseases',
+        id: 'заболевания_крови',
         type: 'radio',
         question: 'Заболевания крови, снижение гемоглобина?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'autoimmune_diseases',
+        id: 'аутоиммунные_заболевания_жен',
         type: 'radio',
         question: 'Аутоиммунные или ревматические заболевания?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'allergic_diseases',
+        id: 'аллергические_заболевания',
         type: 'radio',
         question: 'Аллергические заболевания?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'infectious_diseases',
+        id: 'инфекционные_заболевания',
         type: 'radio',
         question: 'Инфекционные заболевания (вирусные гепатиты, ВИЧ-инфекция, туберкулёз)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'genetic_diseases',
+        id: 'наследственные_заболевания',
         type: 'radio',
         question: 'Наследственные (генные, хромосомные) заболевания?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'oncological_diseases',
+        id: 'онкологические_заболевания',
         type: 'radio',
         question: 'Онкологические заболевания?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'current_diseases',
+        id: 'текущие_заболевания',
         type: 'radio',
         question: 'Имеются ли у Вас указанные выше заболевания в настоящее время?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'cancer_treatment',
+        id: 'лечение_рака_жен',
         type: 'radio',
         question: 'Получали ли Вы ранее химио- или лучевую терапию по поводу онкологического заболевания?',
         options:['да', 'нет'],
         required: true
     },
     {
-        id: 'other_surgeries',
+        id: 'другие_операции',
         type: 'radio',
         question: 'Были ли у Вас операции (кроме гинекологических)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'blood_transfusions',
+        id: 'переливания_крови',
         type: 'radio',
         question: 'Были ли у Вас переливания крови?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'rubella_vaccine',
+        id: 'вакцина_краснухи',
         type: 'radio',
         question: 'Вакцинированы ли Вы от краснухи?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'hpv_vaccine',
+        id: 'вакцина_впч',
         type: 'radio',
         question: 'Вакцинированы ли Вы от ВПЧ?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'flu_vaccine',
+        id: 'вакцина_гриппа',
         type: 'radio',
         question: 'Вакцинированы ли Вы в текущем году от гриппа?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'covid_vaccine',
+        id: 'вакцина_ковида',
         type: 'radio',
         question: 'Вакцинированы ли Вы в текущем году от COVID-19?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'frequent_urination',
+        id: 'учащенное_мочеиспускание',
         type: 'radio',
         question: 'Жалуетесь ли Вы на учащенное или болезненное мочеиспускание?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'urinary_incontinence',
+        id: 'недержание_мочи',
         type: 'radio',
         question: 'Жалуетесь ли Вы на подтекание мочи при кашле, чихании, смехе, неудержание позыва на мочеиспускание?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'vaginal_discharge',
+        id: 'выделения_из_влагалища',
         type: 'radio',
         question: 'Жалуетесь ли Вы на высыпания или выделения из половых путей (бели), вызывающие дискомфорт (жжение, зуд, неприятный запах)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'breast_changes',
+        id: 'изменения_груди',
         type: 'radio',
         question: 'Жалуетесь ли Вы на уплотнения и/или деформация молочных желез, выделения из сосков?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'hirsutism',
+        id: 'гирсутизм',
         type: 'radio',
         question: 'Жалуетесь ли Вы на избыточный рост волос на теле или лице и/или угревые высыпания на коже лица или других частей тела и/или полосы растяжения (стрии, растяжки) на коже?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'hot_flashes',
+        id: 'приливы_жара',
         type: 'radio',
         question: 'Жалуетесь ли Вы на приливы жара, потливость, ознобы?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'vaginal_dryness',
+        id: 'сухость_влагалища',
         type: 'radio',
         question: 'Жалуетесь ли Вы на сухость во влагалище, зуд или диспареунию (болезненность при половом акте)?',
         options: ['да', 'нет'],
         required: true
     },
     {
-        id: 'children_count',
+        id: 'количество_детей',
         type: 'number',
         question: 'Сколько у Вас детей?',
         required: true,
@@ -1164,17 +1204,17 @@ const femaleQuizData = [
         max: 15
     },
     {
-        id: 'youngest_child_age',
+        id: 'возраст_младшего_ребенка',
         type: 'number',
         question: 'Если у Вас есть дети, укажите возраст младшего ребенка. Если ребенку менее 1 года, то укажите 0.',
         required: false,
         min: 0,
         max: 50,
-        dependsOn: 'children_count',
+        dependsOn: 'количество_детей',
         dependsValue: function(value) { return value > 0; }
     },
     {
-        id: 'desired_children',
+        id: 'желаемое_количество_детей',
         type: 'number',
         question: 'Сколько детей Вы бы хотели иметь (с учетом имеющихся), учитывая Ваши текущие жизненные обстоятельства?',
         required: true,
