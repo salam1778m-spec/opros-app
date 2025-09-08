@@ -184,16 +184,18 @@ textarea {
         }
 
         .radio-option {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            flex: 1;
-            margin: 0 10px;
-            cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    min-height: 70px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0 10px;
+}
         }
 
         .radio-option:first-child {
@@ -205,26 +207,42 @@ textarea {
         }
 
         .radio-option {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+    position: relative; /* Делаем родителем для позиционирования */
+    cursor: pointer; /* Меняем курсор на руку */
+    padding: 20px 25px;
+    min-height: 70px;
 }
 
-.radio-option > input[type="radio"] {
+/* Делаем лейбл блоком, который занимает все пространство карточки */
+.radio-option label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+    flex-grow: 1; /* Растягиваем на всю доступную ширину */
+}
+}
+
+/* Саму радио-кнопку можно сдвинуть, например, вправо */
+.radio-option input[type="radio"] {
     width: 28px;
     height: 28px;
     margin-right: 15px;
-    /* Увеличиваем зону клика вокруг кружка */
-    padding: 15px;
-    margin: -15px; /* "Компенсируем" padding, чтобы не сдвинулись другие элементы */
-}
-
-.radio-option > label {
-    margin: 0; /* Убираем отступы у лейбла */
     cursor: pointer;
-    /* Делаем лейбл блочным элементом, чтобы он тоже занимал всю оставшуюся ширину */
-    flex-grow: 1;
-    padding: 20px 0; /* Добавляем вертикальный паддинг для удобства клика */
+    z-index: 2;
+    position: relative;
+}
+        .radio-option::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    z-index: 1;
 }
 
         .form-footer {
@@ -1266,6 +1284,7 @@ const femaleQuizData = [
                 questionEl.classList.add('quiz-question');
                 questionEl.id = `question-${questionData.id}`;
 
+                
                 // Создаем label для вопроса
                 const label = document.createElement('label');
                 label.textContent = questionData.question;
@@ -1276,34 +1295,57 @@ const femaleQuizData = [
 
                 // Создаем поле ввода в зависимости от типа
                 switch (questionData.type) {
-                    case 'radio':
-                        const optionsContainer = document.createElement('div');
-                        optionsContainer.classList.add('radio-options-container');
-                        
-                        questionData.options.forEach(option => {
-                           const radioOption = document.createElement('div');
-radioOption.classList.add('radio-option');
-
-// Сначала создаем и вставляем ЛЕЙБЛ
-const radioLabel = document.createElement('label');
-radioLabel.textContent = option; // Убираем htmlFor
-
-// Затем создаем инпут
-const radioInput = document.createElement('input');
-radioInput.type = 'radio';
-radioInput.name = questionData.id;
-radioInput.value = option;
-radioInput.id = `${questionData.id}-${option}`;
-// ... остальной код ...
-
-// Вставляем в правильном порядке: сначала лейбл, потом инпут
-radioOption.appendChild(radioLabel);
-radioOption.appendChild(radioInput); // Теперь инпут ВНУТРИ лейбла
-                            optionsContainer.appendChild(radioOption);
-                        });
-                        
-                        questionEl.appendChild(optionsContainer);
-                        break;
+                    // ... внутри цикла forEach по questionData ...
+case 'radio':
+    const optionsContainer = document.createElement('div');
+    optionsContainer.classList.add('radio-options-container');
+    
+    questionData.options.forEach(option => {
+        const radioOption = document.createElement('div');
+        radioOption.classList.add('radio-option');
+        
+        // Создаем уникальный ID для связи input и label
+        const optionId = `${questionData.id}-${option}-${Math.random().toString(36).substr(2, 9)}`;
+        
+        // Создаем радио-кнопку
+        const radioInput = document.createElement('input');
+        radioInput.type = 'radio';
+        radioInput.name = questionData.id;
+        radioInput.value = option;
+        radioInput.id = optionId;
+        if (questionData.required) radioInput.required = true;
+        
+        // Создаем лейбл
+        const radioLabel = document.createElement('label');
+        radioLabel.htmlFor = optionId;
+        radioLabel.textContent = option;
+        
+        // Добавляем клик на всю карточку
+        radioOption.addEventListener('click', function(e) {
+            // Если кликнули не на сам инпут, то активируем его
+            if (e.target !== radioInput) {
+                radioInput.checked = true;
+                // Запускаем событие change для зависимых вопросов
+                const event = new Event('change', { bubbles: true });
+                radioInput.dispatchEvent(event);
+            }
+        });
+        
+        // Добавляем обработчик для зависимых вопросов
+        if (questionData.dependsOn) {
+            radioInput.addEventListener('change', function() {
+                toggleDependentQuestions();
+            });
+        }
+        
+        // Добавляем элементы в правильном порядке
+        radioOption.appendChild(radioInput);
+        radioOption.appendChild(radioLabel);
+        optionsContainer.appendChild(radioOption);
+    });
+    
+    questionEl.appendChild(optionsContainer);
+    break;
 
                     case 'checkbox':
                         questionData.options.forEach(option => {
