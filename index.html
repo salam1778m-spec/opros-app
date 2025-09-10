@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Анонимная проверка репродуктивного здоровья</title>
-    <!-- Подключение Tailwind CSS для современного дизайна -->
+    <!-- Подключение Tailwind CSS через HTTPS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Подключение шрифта Inter -->
+    <!-- Подключение шрифта Inter через HTTPS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Дополнительные стили для кастомизации */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Tailwind 'slate-50' */
+            background-color: #f8fafc;
         }
         .hero-gradient {
             background: linear-gradient(135deg, #e0f2fe 0%, #f5f3ff 100%);
         }
-        /* Улучшенный стиль для radio button */
         input[type="radio"]:checked + label {
-            border-color: #3b82f6; /* Tailwind 'blue-500' */
-            background-color: #dbeafe; /* Tailwind 'blue-100' */
-            color: #1e3a8a; /* Tailwind 'blue-800' */
+            border-color: #3b82f6;
+            background-color: #dbeafe;
+            color: #1e3a8a;
         }
-        /* Плавные переходы для всех элементов */
         * {
             transition: all 0.2s ease-in-out;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -36,7 +36,7 @@
     <div id="app" class="max-w-7xl mx-auto">
 
         <!-- Основной контент (Анкета) -->
-        <main id="mainPage" class="">
+        <main id="mainPage">
             <!-- Секция "Герой" -->
             <section class="hero-gradient text-center py-20 px-4 sm:px-6 lg:px-8">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-800 tracking-tight">
@@ -118,20 +118,40 @@
                 </div>
                 <h1 class="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">Спасибо! Ваша анкета принята.</h1>
                 <p class="text-slate-600 text-lg mb-6">Врач свяжется с вами по указанному номеру телефона в течение 24 часов. Обратите внимание: звонок может поступить со скрытого или незнакомого номера.</p>
-                <a href="/" class="inline-block mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <button onclick="location.reload()" class="inline-block mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Вернуться на главную
-                </a>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
     // --- ДАННЫЕ ОПРОСНИКОВ ---
-    const maleQuizData = [ { id: 'has_children', type: 'radio', question: 'Есть ли у Вас родные дети?', options: ['да', 'нет'], required: true }, { id: 'plan_children', type: 'radio', question: 'Планируете ли Вы в дальнейшем зачать ребенка?', options: ['да', 'нет'], required: true }, { id: 'visit_sauna', type: 'radio', question: 'Посещаете ли вы регулярно бани, сауны?', options: ['да', 'нет'], required: true }, { id: 'sex_start_age', type: 'number', question: 'Возраст начала половой жизни (полных лет)?', required: true, min: 12, max: 50 }, { id: 'unprotected_sex', type: 'radio', question: 'Были ли у вас за последние 12 месяцев контакты без презерватива?', options: ['да', 'нет'], required: true }, { id: 'plan_conception', type: 'radio', question: 'Планируете ли Вы зачатие ребенка в ближайшие 12 месяцев?', options: ['да', 'нет'], required: true }, { id: 'infertility_problem', type: 'radio', question: 'Было ли так, что у партнерши не наступала беременность более 12 месяцев?', options: ['да', 'нет'], required: true }, ];
-    const femaleQuizData = [ { id: 'menarche_age', type: 'number', question: 'В каком возрасте у Вас начались менструации?', required: false, min: 8, max: 25 }, { id: 'regular_cycle', type: 'radio', question: 'Менструации проходят регулярно?', options: ['да', 'нет'], required: true }, { id: 'cycle_length', type: 'number', question: 'Продолжительность менструального цикла (дней)?', required: false, min: 21, max: 35 }, { id: 'period_duration', type: 'number', question: 'Сколько дней продолжается менструация?', required: false, min: 2, max: 10 }, { id: 'delayed_periods', type: 'radio', question: 'Бывают ли у Вас задержки менструации более 2 недель?', options: ['да', 'нет'], required: true }, { id: 'heavy_bleeding', type: 'radio', question: 'У Вас обильные менструации?', options: ['да', 'нет'], required: true }, { id: 'painful_periods', type: 'radio', question: 'Менструации проходят болезненно?', options: ['да', 'нет'], required: true }, { id: 'pregnancies', type: 'radio', question: 'Были ли у Вас беременности?', options: ['да', 'нет'], required: true }, { id: 'births', type: 'radio', question: 'Были ли у Вас роды?', options: ['да', 'нет'], required: true, dependsOn: 'pregnancies', dependsValue: 'да' }, { id: 'abortions', type: 'radio', question: 'Были ли у Вас аборты?', options: ['да', 'нет'], required: true, dependsOn: 'pregnancies', dependsValue: 'да' }, ];
+    const maleQuizData = [ 
+        { id: 'has_children', type: 'radio', question: 'Есть ли у Вас родные дети?', options: ['да', 'нет'], required: true }, 
+        { id: 'plan_children', type: 'radio', question: 'Планируете ли Вы в дальнейшем зачать ребенка?', options: ['да', 'нет'], required: true }, 
+        { id: 'visit_sauna', type: 'radio', question: 'Посещаете ли вы регулярно бани, сауны?', options: ['да', 'нет'], required: true }, 
+        { id: 'sex_start_age', type: 'number', question: 'Возраст начала половой жизни (полных лет)?', required: true, min: 12, max: 50 }, 
+        { id: 'unprotected_sex', type: 'radio', question: 'Были ли у вас за последние 12 месяцев контакты без презерватива?', options: ['да', 'нет'], required: true }, 
+        { id: 'plan_conception', type: 'radio', question: 'Планируете ли Вы зачатие ребенка в ближайшие 12 месяцев?', options: ['да', 'нет'], required: true }, 
+        { id: 'infertility_problem', type: 'radio', question: 'Было ли так, что у партнерши не наступала беременность более 12 месяцев?', options: ['да', 'нет'], required: true } 
+    ];
+    
+    const femaleQuizData = [ 
+        { id: 'menarche_age', type: 'number', question: 'В каком возрасте у Вас начались менструации?', required: false, min: 8, max: 25 }, 
+        { id: 'regular_cycle', type: 'radio', question: 'Менструации проходят регулярно?', options: ['да', 'нет'], required: true }, 
+        { id: 'cycle_length', type: 'number', question: 'Продолжительность менструального цикла (дней)?', required: false, min: 21, max: 35 }, 
+        { id: 'period_duration', type: 'number', question: 'Сколько дней продолжается менструация?', required: false, min: 2, max: 10 }, 
+        { id: 'delayed_periods', type: 'radio', question: 'Бывают ли у Вас задержки менструации более 2 недель?', options: ['да', 'нет'], required: true }, 
+        { id: 'heavy_bleeding', type: 'radio', question: 'У Вас обильные менструации?', options: ['да', 'нет'], required: true }, 
+        { id: 'painful_periods', type: 'radio', question: 'Менструации проходят болезненно?', options: ['да', 'нет'], required: true }, 
+        { id: 'pregnancies', type: 'radio', question: 'Были ли у Вас беременности?', options: ['да', 'нет'], required: true }, 
+        { id: 'births', type: 'radio', question: 'Были ли у Вас роды?', options: ['да', 'нет'], required: true, dependsOn: 'pregnancies', dependsValue: 'да' }, 
+        { id: 'abortions', type: 'radio', question: 'Были ли у Вас аборты?', options: ['да', 'нет'], required: true, dependsOn: 'pregnancies', dependsValue: 'да' } 
+    ];
 
     // --- ОСНОВНАЯ ЛОГИКА ---
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('healthForm');
         
         renderInitialScreen();
@@ -141,7 +161,7 @@
     });
 
     // --- ФУНКЦИИ РЕНДЕРИНГА ---
-    const createQuestionHTML = (q) => {
+    function createQuestionHTML(q) {
         const requiredSpan = q.required ? '<span class="text-red-500 ml-1">*</span>' : '';
         const baseClasses = "mt-1 block w-full px-4 py-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500";
         
@@ -159,7 +179,9 @@
             case 'number':
                 inputHTML = `<input type="number" id="${q.id}" name="${q.id}" class="${baseClasses}" ${q.required ? 'required' : ''} ${q.min ? `min="${q.min}"` : ''} ${q.max ? `max="${q.max}"` : ''}>`;
                 break;
-            // Add other cases like 'text', 'textarea' if needed
+            case 'tel':
+                inputHTML = `<input type="tel" id="${q.id}" name="${q.id}" class="${baseClasses}" placeholder="${q.placeholder || ''}" ${q.required ? 'required' : ''} pattern="[+]{0,1}[0-9]{1,15}" title="Введите номер телефона">`;
+                break;
         }
         
         const isDependent = q.dependsOn ? 'hidden' : '';
@@ -167,22 +189,34 @@
                     <label for="${q.id}" class="block text-md font-medium text-slate-700">${q.question}${requiredSpan}</label>
                     ${inputHTML}
                 </div>`;
-    };
+    }
 
-    const renderInitialScreen = () => {
+    function renderInitialScreen() {
         const quizContainer = document.getElementById('quizContainer');
-        const phoneHTML = createQuestionHTML({id: 'Телефон', type: 'number', question: 'Номер телефона (для связи)', required: true});
-        const genderHTML = createQuestionHTML({id: 'Пол', type: 'radio', question: 'Ваш пол?', options: ['Мужской', 'Женский'], required: true});
+        const phoneHTML = createQuestionHTML({
+            id: 'phone', 
+            type: 'tel', 
+            question: 'Номер телефона (для связи)', 
+            required: true,
+            placeholder: '+7(900) 123-45-67'
+        });
+        const genderHTML = createQuestionHTML({
+            id: 'gender', 
+            type: 'radio', 
+            question: 'Ваш пол?', 
+            options: ['Мужской', 'Женский'], 
+            required: true
+        });
         quizContainer.innerHTML = phoneHTML + genderHTML;
-    };
+    }
 
-    const renderGenderSpecificQuestions = (gender) => {
+    function renderGenderSpecificQuestions(gender) {
         const quizContainer = document.getElementById('quizContainer');
         const quizData = gender === 'Мужской' ? maleQuizData : femaleQuizData;
         
         // Удаляем старые вопросы, кроме телефона и пола
         document.querySelectorAll('[id^="question-"]').forEach(el => {
-            if (el.id !== 'question-Телефон' && el.id !== 'question-Пол') {
+            if (el.id !== 'question-phone' && el.id !== 'question-gender') {
                 el.remove();
             }
         });
@@ -190,19 +224,19 @@
         // Добавляем новые
         const questionsHTML = quizData.map(createQuestionHTML).join('');
         quizContainer.insertAdjacentHTML('beforeend', questionsHTML);
-    };
+        toggleDependentQuestions();
+    }
 
     // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
-    const handleFormChange = (event) => {
-        if (event.target.name === 'Пол') {
+    function handleFormChange(event) {
+        if (event.target.name === 'gender') {
             renderGenderSpecificQuestions(event.target.value);
         }
         toggleDependentQuestions();
-    };
+    }
 
-    const handleFormSubmit = async (event) => {
+    async function handleFormSubmit(event) {
         event.preventDefault();
-        const form = event.target;
         const submitButton = document.getElementById('submitButton');
         const buttonText = document.getElementById('buttonText');
         const loadingSpinner = document.getElementById('loadingSpinner');
@@ -212,48 +246,50 @@
         buttonText.textContent = 'Отправка...';
         loadingSpinner.classList.remove('hidden');
 
-        const formData = new FormData(form);
+        const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
 
         try {
-            // Имитация отправки данных на сервер
-            console.log("Отправка данных:", data);
-            await new Promise(resolve => setTimeout(resolve, 1500)); // Задержка для демонстрации
-            
-             const response = await fetch('https://formsubmit.co/ajax/msalam999@mail.ru', {
+            // Отправка данных на FormSubmit
+            const response = await fetch('https://formsubmit.co/ajax/msalam999@mail.ru', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json' 
+                },
                 body: JSON.stringify(data)
             });
+            
             if (!response.ok) throw new Error('Network response was not ok.');
+            
             const result = await response.json();
-            console.log(result);
-            */
-
+            console.log('FormSubmit response:', result);
+            
             showThankYouPage();
 
         } catch (error) {
             console.error('Ошибка при отправке формы:', error);
             alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
+            
             // Скрыть индикатор загрузки в случае ошибки
             submitButton.disabled = false;
             buttonText.textContent = 'Отправить анкету';
             loadingSpinner.classList.add('hidden');
         }
-    };
+    }
     
     // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
-    const scrollToForm = () => {
+    function scrollToForm() {
         document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
-    };
+    }
 
-    const showThankYouPage = () => {
+    function showThankYouPage() {
         document.getElementById('mainPage').classList.add('hidden');
         document.getElementById('thankYouPage').classList.remove('hidden');
         window.scrollTo(0, 0);
-    };
+    }
 
-    const toggleDependentQuestions = () => {
+    function toggleDependentQuestions() {
         const allQuestions = [...maleQuizData, ...femaleQuizData];
         const dependentQuestions = allQuestions.filter(q => q.dependsOn);
 
@@ -268,8 +304,7 @@
                 questionElement.classList.add('hidden');
             }
         });
-    };
-
+    }
     </script>
 </body>
 </html>
