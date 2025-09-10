@@ -23,16 +23,16 @@
         <!-- Основной контент (Анкета) -->
         <main id="mainPage">
             <!-- Секция "Герой" -->
-            <section class="py-16 form-section"> <!-- Добавьте класс form-section -->
+            <section class="hero-gradient text-center py-20 px-4 sm:px-6 lg:px-8">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-800 tracking-tight">
                     Позаботьтесь о своем здоровье
                 </h1>
                 <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
                     Пройдите анонимную онлайн-анкету. Ваши данные полностью конфиденциальны. Первый шаг к решению проблемы — самый простой.
                 </p>
-                <a href="#healthForm" class="mt-8 px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 inline-block">
-    Заполнить анкету
-</a>
+                <button onclick="scrollToForm()" class="mt-8 px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105">
+                    Заполнить анкету
+                </button>
             </section>
 
             <!-- Секция преимуществ -->
@@ -63,31 +63,31 @@
             </section>
 
             <!-- Секция с формой -->
-            <section class="py-16">
-                <div class="container mx-auto px-4">
-                    <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Анонимная анкета</h2>
-                    
-                    <!-- Форма с Formsubmit -->
-                    <form id="healthForm" action="https://formsubmit.co/msalam999@mail.ru" method="POST" class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-lg">
-                        <!-- Скрытые поля для Formsubmit -->
-                        <input type="hidden" name="_subject" value="Новая анкета репродуктивного здоровья">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="https://salam1778m-spec.github.io/opros-app/thank-you.html">
-                        
-                        <div id="quizContainer">
-                            <!-- Сюда будет вставлен опросник -->
-                        </div>
+<section class="py-16 form-section">  <!-- ДОБАВЛЕН КЛАСС form-section -->
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Анонимная анкета</h2>
+        
+        <!-- Форма с Formsubmit -->
+        <form id="healthForm" action="https://formsubmit.co/msalam999@mail.ru" method="POST" class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-lg">
+            <!-- Скрытые поля для Formsubmit -->
+            <input type="hidden" name="_subject" value="Новая анкета репродуктивного здоровья">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://your-username.github.io/your-repository/thank-you.html">
+            
+            <div id="quizContainer">
+                <!-- Сюда будет вставлен опросник -->
+            </div>
 
-                        <div class="form-footer mt-8 text-center">
-                            <p class="text-sm text-slate-500 mb-6">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
-                            <button type="submit" class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                Отправить анкету
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
+            <div class="form-footer mt-8 text-center">
+                <p class="text-sm text-slate-500 mb-6">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+                <button type="submit" class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Отправить анкету
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
 
             <footer class="bg-slate-100 py-8 text-center text-slate-500">
                 <div class="container mx-auto px-4">
@@ -867,8 +867,8 @@
     
     // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
     function scrollToForm() {
-        document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
-    }
+    document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+}
 
     function toggleDependentQuestions() {
         const allQuestions = [...maleQuizData, ...femaleQuizData];
