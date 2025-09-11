@@ -68,24 +68,20 @@
         <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Анонимная анкета</h2>
         
         <!-- Форма с Formsubmit -->
-        <form id="healthForm" action="https://formsubmit.co/msalam999@mail.ru" method="POST" class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-lg">
-            <!-- Скрытые поля для Formsubmit -->
-            <input type="hidden" name="_subject" value="Новая анкета репродуктивного здоровья">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://salam1778m-spec.github.io/opros-app/thank-you.html">
-            
-            <div id="quizContainer">
-                <!-- Сюда будет вставлен опросник -->
-            </div>
-
-            <div class="form-footer mt-8 text-center">
-                <p class="text-sm text-slate-500 mb-6">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
-                <button type="submit" class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                    Отправить анкету
-                </button>
-            </div>
-        </form>
+        <form id="healthForm" action="https://script.google.com/macros/s/AKfycbzNcijiHoNLgIpCRUQYzzGS0YwIbSLgBlgSr_cGyebDqkNTcZhxhL5e33VFuK3WFkqJ/exec" method="POST" class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-lg">
+    <!-- Добавьте это скрытое поле для безопасности -->
+    <input type="hidden" name="secret" value="ВАШ_СЕКРЕТНЫЙ_КЛЮЧ">
+    
+    <div id="quizContainer">
+        <!-- Сюда будет вставлен опросник -->
+    </div>
+    <div class="form-footer mt-8 text-center">
+        <p class="text-sm text-slate-500 mb-6">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+        <button type="submit" class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Отправить анкету
+        </button>
+    </div>
+</form>
     </div>
 </section>
 
@@ -790,6 +786,54 @@
     document.addEventListener('DOMContentLoaded', function() {
         renderInitialScreen();
         document.getElementById('healthForm').addEventListener('change', handleFormChange);
+        
+        // 1. НАХОДИМ ФОРМУ
+        const form = document.getElementById('healthForm');
+        // 2. ДОБАВЛЯЕМ ОБРАБОТЧИК ОТПРАВКИ
+        form.addEventListener('submit', function(event) {
+            // Отменяем стандартное поведение браузера (переход по action)
+            event.preventDefault();
+
+            // Блокируем кнопку, чтобы избежать повторных отправок
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Отправка...';
+
+            // Собираем данные формы
+            const formData = new FormData(this);
+
+            // Отправляем данные на сервер с помощью Fetch API
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // Проверяем, успешен ли ответ HTTP
+                if (!response.ok) {
+                    throw new Error('Ошибка сети');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    // Если успешно, перенаправляем пользователя
+                    window.location.href = data.redirectUrl;
+                } else {
+                    // Если ошибка, показываем сообщение и разблокируем кнопку
+                    alert('Ошибка: ' + data.message);
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
+            })
+            .catch(error => {
+                // Если ошибка сети или другая непредвиденная ошибка
+                console.error('Error:', error);
+                alert('Произошла ошибка сети. Попробуйте еще раз.');
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            });
+        });
     });
 
     // --- ФУНКЦИИ РЕНДЕРИНГА ---
