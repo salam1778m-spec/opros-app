@@ -63,25 +63,102 @@
             </section>
 
             <!-- Секция с формой -->
-<section class="py-16 form-section">  <!-- ДОБАВЛЕН КЛАСС form-section -->
+<section class="py-16 form-section">  
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Анонимная анкета</h2>
         
-        <!-- Форма с Formsubmit -->
-        <form id="healthForm" action="https://script.google.com/macros/s/AKfycbztrA6gCbFxUGtF81_79x5c4yap0s0I_SZyoGaQxErPAfudzk9pCSeAUjr6NmFFQC46/exec" method="POST" class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-lg">
+        <!-- Форма отправляет данные на вашу БД вместо Google Таблиц -->
+        <form id="healthForm" action="/api/save_anketa.php" method="POST" class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-lg">
     
-    <div id="quizContainer">
-        <!-- Сюда будет вставлен опросник -->
-    </div>
-    <div class="form-footer mt-8 text-center">
-        <p class="text-sm text-slate-500 mb-6">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
-        <button type="submit" class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Отправить анкету
-        </button>
-    </div>
-</form>
+            <div id="quizContainer">
+                <!-- Сюда будет вставлен опросник -->
+            </div>
+            
+            <!-- ОБНОВЛЕННЫЙ БЛОК С СОГЛАСИЕМ И КНОПКОЙ -->
+            <div class="form-footer mt-8 text-center">
+                <!-- Текст согласия (без чекбокса) -->
+                <div class="mb-6 text-sm text-slate-600">
+                    Нажимая кнопку "Отправить анкету", я принимаю условия
+                    <a href="privacy-policy.html" target="_blank" class="font-medium text-blue-600 hover:underline">Политики</a> и даю
+                    <a href="consent.html" target="_blank" class="font-medium text-blue-600 hover:underline">Согласие на обработку персональных данных</a>.
+                </div>
+
+                <!-- Кнопка отправки (теперь активна по умолчанию) -->
+                <button type="submit" id="submitButton" class="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Отправить анкету
+                </button>
+                
+                <!-- Сообщение об ошибке (если будет) -->
+                <div id="errorMessage" class="mt-4 text-red-600 hidden"></div>
+                
+                <!-- Сообщение об успехе (если будет) -->
+                <div id="successMessage" class="mt-4 text-green-600 hidden"></div>
+            </div>
+        </form>
     </div>
 </section>
+<script>
+    // ===== ОБРАБОТКА ОТПРАВКИ ФОРМЫ =====
+    document.getElementById('healthForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Скрываем предыдущие сообщения
+        document.getElementById('errorMessage').classList.add('hidden');
+        document.getElementById('successMessage').classList.add('hidden');
+
+        // Блокируем кнопку
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Отправка...';
+
+        // Собираем данные формы
+        const formData = new FormData(this);
+        
+        // ДОБАВЛЯЕМ ФЛАГ СОГЛАСИЯ В ДАННЫЕ ФОРМЫ
+        // Так как нажатие кнопки = согласие
+        formData.append('consent_given', 'true');
+
+        // Отправляем данные на сервер
+        fetch(this.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            // Проверяем статус ответа
+            if (!response.ok) {
+                throw new Error('Ошибка сети: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                // Успешно! Показываем сообщение и перенаправляем
+                document.getElementById('successMessage').textContent = data.message;
+                document.getElementById('successMessage').classList.remove('hidden');
+                
+                // Перенаправляем на страницу благодарности через 2 секунды
+                setTimeout(() => {
+                    window.location.href = data.redirectUrl || '/success.html';
+                }, 2000);
+            } else {
+                // Ошибка от сервера
+                throw new Error(data.message || 'Неизвестная ошибка');
+            }
+        })
+        .catch(error => {
+            // Показываем ошибку пользователю
+            console.error('Error:', error);
+            document.getElementById('errorMessage').textContent = 
+                'Ошибка при отправке анкеты: ' + error.message + '. Пожалуйста, попробуйте позже.';
+            document.getElementById('errorMessage').classList.remove('hidden');
+            
+            // Разблокируем кнопку
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        });
+    });
+</script>
 
             <footer class="bg-slate-100 py-8 text-center text-slate-500">
                 <div class="container mx-auto px-4">
